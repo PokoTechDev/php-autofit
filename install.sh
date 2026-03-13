@@ -31,6 +31,14 @@ else
   exit 1
 fi
 
+# Set secure file permissions
+chmod 644 "$SCRIPT_PATH"
+
+# Backup .zshrc before modification
+if [ -f "$ZSHRC" ]; then
+  cp "$ZSHRC" "${ZSHRC}.bak.$(date +%s)" 2>/dev/null || true
+fi
+
 # Add to .zshrc (skip if already present)
 if grep -qF "php-autofit/phpuse.zsh" "$ZSHRC" 2>/dev/null; then
   echo "php-autofit is already configured in $ZSHRC"
