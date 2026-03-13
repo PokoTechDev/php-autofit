@@ -74,8 +74,10 @@ _phpuse_do_switch() {
     done
   fi
 
-  if ! brew link "$pkg" --force --overwrite >/dev/null 2>&1; then
+  local link_output
+  if ! link_output=$(brew link "$pkg" --force --overwrite 2>&1); then
     echo "brew link 失敗: $pkg" >&2
+    echo "$link_output" >&2
     return 1
   fi
 

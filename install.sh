@@ -36,7 +36,11 @@ chmod 644 "$SCRIPT_PATH"
 
 # Backup .zshrc before modification
 if [ -f "$ZSHRC" ]; then
-  cp "$ZSHRC" "${ZSHRC}.bak.$(date +%s)" 2>/dev/null || true
+  BACKUP_PATH="${ZSHRC}.bak.$(date +%s)"
+  if ! cp "$ZSHRC" "$BACKUP_PATH"; then
+    echo "Error: failed to create backup: $BACKUP_PATH" >&2
+    exit 1
+  fi
 fi
 
 # Add to .zshrc (skip if already present)
