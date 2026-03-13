@@ -41,6 +41,11 @@ _phpuse_read_composer_ver() {
 _phpuse_do_switch() {
   local ver=$1
 
+  if [[ ! "$ver" =~ ^[0-9]+\.[0-9]+$ ]]; then
+    echo "無効なバージョン形式: $ver" >&2
+    return 1
+  fi
+
   local installed
   installed=$(brew list --formula 2>/dev/null | grep -E '^php(@[0-9]+\.[0-9]+)?$')
   local latest_ver
@@ -63,10 +68,16 @@ _phpuse_do_switch() {
     fi
   fi
 
-  [ -n "$installed" ] && echo "$installed" | xargs -I{} brew unlink {} >/dev/null 2>&1
+  if [ -n "$installed" ]; then
+    echo "$installed" | while IFS= read -r _pkg; do
+      [ -n "$_pkg" ] && brew unlink "$_pkg" >/dev/null 2>&1
+    done
+  fi
 
-  if ! brew link "$pkg" --force --overwrite >/dev/null; then
+  local link_output
+  if ! link_output=$(brew link "$pkg" --force --overwrite 2>&1); then
     echo "brew link 失敗: $pkg" >&2
+    echo "$link_output" >&2
     return 1
   fi
 
