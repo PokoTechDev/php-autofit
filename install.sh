@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-REPO_URL="https://raw.githubusercontent.com/oouchinaoki/php-autofit/main/phpuse.zsh"
+REPO_URL="https://raw.githubusercontent.com/NaokiOouchi/php-autofit/main/phpuse.zsh"
 INSTALL_DIR="$HOME/.php-autofit"
 SCRIPT_PATH="$INSTALL_DIR/phpuse.zsh"
 SOURCE_LINE="source \"$INSTALL_DIR/phpuse.zsh\""
