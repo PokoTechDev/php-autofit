@@ -23,7 +23,7 @@ Automatic PHP version switching based on `composer.json`. When you `cd` into a p
 ## Installation
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/NaokiOouchi/php-autofit/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/PokoTechDevOrg/php-autofit/main/install.sh | sh
 ```
 
 Then reload your shell:
